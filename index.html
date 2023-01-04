@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Static Template</title>
-    <script src="multi-select.js"></script>
+    <script src="components/multi-select.js"></script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -42,19 +42,12 @@
         document
           .querySelector("multi-select")
           .setAttribute(
-            "data-value",
+            "data-options",
             '[{"label":"Item1","value":"Item1"},{"label":"Item2","value":"Item2"},{"label":"Item3","value":"Item3"}]'
           );
       }
 
       set();
-
-      document
-        .querySelector("multi-select")
-        .addEventListener("data-value", (e) => {
-          let res = JSON.parse(e.detail);
-          console.log(res);
-        });
     </script>
   </body>
 </html>
