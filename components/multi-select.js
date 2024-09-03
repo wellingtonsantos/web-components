@@ -20,8 +20,7 @@ class MultiSelectElement extends HTMLElement {
 
   handleChange(event) {
     const value = event.target.value;
-    let x = this.getAttribute('data-value')
-    let selectedValues = x ? JSON.parse(x) : [];
+    let selectedValues = JSON.parse(this.getAttribute('data-value')) || [];
 
     if (event.target.checked) {
       selectedValues.push(value);
