@@ -2,7 +2,6 @@ class MultiSelectElement extends HTMLElement {
   constructor() {
     super();
     this.attachShadow({ mode: 'open' });
-
     this.handleChange = this.handleChange.bind(this);
   }
 
@@ -20,7 +19,7 @@ class MultiSelectElement extends HTMLElement {
 
   handleChange(event) {
     const value = event.target.value;
-    let selectedValues = JSON.parse(this.getAttribute('data-value')) || [];
+    let selectedValues = this.getParsedAttribute('data-value') || [];
 
     if (event.target.checked) {
       selectedValues.push(value);
@@ -32,9 +31,18 @@ class MultiSelectElement extends HTMLElement {
     this.dispatchEvent(new CustomEvent('change', { detail: selectedValues }));
   }
 
+  getParsedAttribute(attrName) {
+    try {
+      return JSON.parse(this.getAttribute(attrName)) || [];
+    } catch (e) {
+      console.error(`Failed to parse ${attrName}:`, e);
+      return [];
+    }
+  }
+
   render() {
-    const options = JSON.parse(this.getAttribute('data-options')) || [];
-    const selectedValues = JSON.parse(this.getAttribute('data-value')) || [];
+    const options = this.getParsedAttribute('data-options');
+    const selectedValues = this.getParsedAttribute('data-value');
     const fontColor = this.getAttribute('font-color') || 'black';
 
     this.shadowRoot.innerHTML = `
@@ -68,4 +76,4 @@ class MultiSelectElement extends HTMLElement {
   }
 }
 
-customElements.define('multi-select', MultiSelectElement);
+customElements.define('multi-select-element', MultiSelectElement);
